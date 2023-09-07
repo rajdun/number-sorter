@@ -1,12 +1,10 @@
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mount } from '@vue/test-utils';
+import HomeView from '@/views/HomeView.vue';
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
-    expect(wrapper.text()).toMatch(msg);
+// test if the button is rendered
+describe('HomeView.vue', () => {
+  it('renders button in the center of the screen', () => {
+    const wrapper = mount(HomeView);
+    expect(wrapper.find('button').exists()).toBe(true);
   });
 });
