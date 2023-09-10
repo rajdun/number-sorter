@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <HomeView />
+    <router-view v-slot="{ Component }">
+      <component :is="Component" />
+    </router-view>
   </div>
 </template>
 
@@ -27,4 +29,14 @@ body
   background: $background
   color: $text
   overflow hidden
+  @media (max-width: 600px)
+    font-size: 12px
+  @media (min-width: 600px)
+    font-size: 12px
+  @media (min-width: 768px)
+    font-size: 14px
+  @media (min-width 922px)
+    font-size: 14px
+  @media (min-width: 1200px)
+    font-size: 16px
 </style>

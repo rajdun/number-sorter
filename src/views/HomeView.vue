@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 import StartButton from '@/components/StartButton.vue';
 
-@Options({
+export default defineComponent({
+  name: 'HomeView',
   components: {
     StartButton,
   },
-})
-export default class HomeView extends Vue { }
+});
 </script>
 
 <style lang="stylus" scoped>

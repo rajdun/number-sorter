@@ -4,14 +4,11 @@
   </div>
 </template>
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 
-@Options({
-  components: {
-  },
-})
-
-export default class StartButton extends Vue { }
+export default defineComponent({
+  name: 'StartButton',
+});
 </script>
 <style lang="stylus" scoped>
 #start-button
