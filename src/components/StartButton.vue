@@ -21,9 +21,12 @@ export default defineComponent({
     padding: 1em 2em
     cursor: pointer
     transition: all 0.3s ease
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
     &:hover
       background: #e8eaed
       color: #242424
+    &:active
+      box-shadow: none
 
     // font size based on screen size
     @media (max-width: 600px)

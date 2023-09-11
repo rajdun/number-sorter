@@ -14,6 +14,16 @@
           @onMouseDown="onSordetFieldClick" />
       </div>
     </div>
+    <MessageBox
+      v-if="gameState === GameStates.Lost"
+      title="You lost!"
+      message="You lost the game. Try again!"
+      messageType="2" />
+    <MessageBox
+      v-if="gameState === GameStates.Won"
+      title="You won!"
+      message="You won the game. Congratulations!"
+      messageType="3" />
   </div>
 </template>
 
@@ -22,12 +32,14 @@ import { defineComponent, ref } from 'vue';
 import RandomNumberDisplay from '@/components/RandomNumberDisplay.vue';
 import NavBar from '@/components/NavBar.vue';
 import SortedField from '@/components/SortedField.vue';
+import MessageBox from '@/components/MessageBox.vue';
 
 // eslint-disable-next-line no-shadow
 enum GameStates {
   Shuffling,
   Sorting,
   Won,
+  Lost,
 }
 
 export default defineComponent({
@@ -36,11 +48,13 @@ export default defineComponent({
     NavBar,
     RandomNumberDisplay,
     SortedField,
+    MessageBox,
   },
   setup() {
     const randomNumberDisplayRef = ref<InstanceType<typeof RandomNumberDisplay> | null>(null);
     return {
       randomNumberDisplayRef,
+      GameStates,
     };
   },
   data() {
@@ -73,7 +87,7 @@ export default defineComponent({
       this.gameState = GameStates.Shuffling;
 
       if (!this.validateIfNumbersAreSorted()) {
-        console.log('You lost');
+        this.gameState = GameStates.Lost;
       }
     },
     validateIfNumbersAreSorted() {
