@@ -25,6 +25,7 @@ export default defineComponent({
     &:hover
       background: #e8eaed
       color: #242424
+      transform scale(1.1)
     &:active
       box-shadow: none
 

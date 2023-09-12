@@ -6,8 +6,11 @@
     'success': messageType == MessageType.Success,
   }">
     <div>
-      <h1 class="title">{{ title }}</h1>
-      <p class="message">{{ message }}</p>
+      <div class="left-side"></div>
+      <div class="right-side">
+        <h1 class="title">{{ title }}</h1>
+        <p class="message">{{ message }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -60,7 +63,7 @@ export default defineComponent({
   bottom: 33%
   border-radius: 1rem
   border: 1px solid #e8eaed
-  background: rgba(36, 36, 36, 0.9)
+  background: #fff
   box-shadow 0 0 10px 0 rgba(0, 0, 0, 0.5)
   z-index 9999
 
@@ -90,6 +93,7 @@ export default defineComponent({
   text-align: center
   font-size: 1rem
   margin: 1rem 0
+  color: #242424
 
 .custom-button
   background: #242424
@@ -103,19 +107,26 @@ export default defineComponent({
     background: #e8eaed
     color: #242424
 
+.left-side
+  background black
+  top 0
+  bottom 0
+  left 0
+  width 1rem
+
 .info
-  &>div>.title
-    color: rgba(52, 152, 219, 1)
+  &>div>.right-side>.title
+    color: #3498db
 
 .warning
-  &>div>.title
-    color: rgba(241, 196, 15, 1)
+  &>div>.right-side>.title
+    color: #f1c40f
 
 .error
-  &>div>.title
-    color: rgba(231, 76, 60, 1)
+  &>div>.right-side>.title
+    color: #e74c3c
 
 .success
-  &>div>.title
-    color: rgba(46, 204, 113, 1)
+  &>div>.right-side>.title
+    color: #2ecc71
 </style>

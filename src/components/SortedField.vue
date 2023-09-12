@@ -89,6 +89,7 @@ export default defineComponent({
   border-top 1px solid #e8eaed
   border-bottom 1px solid #e8eaed
   padding: 0 0.5rem
+  min-width 2rem
   &.enter-from-left
     animation: fromLeft 0.2s ease-out
   &.enter-from-right

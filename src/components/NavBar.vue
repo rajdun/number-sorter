@@ -19,4 +19,7 @@ export default defineComponent({
   border: none
   cursor: pointer
   font-size: inherit
+  transition color 0.3s ease
+  &:hover
+    color: darken(#e8eaed, 10%)
 </style>
