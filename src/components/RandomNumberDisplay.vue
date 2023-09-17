@@ -1,6 +1,7 @@
 <template>
-  <div id="random-number-display">
-    <span @mousedown="handleClick">{{ displayNumber }}</span>
+  <div id="random-number-display" :class="{'animate':isTransitioning}" @mousedown="handleClick">
+    <div v-for="(number, index) in randomNumberList" :key="index">{{number}}</div>
+    <div>{{randomNumber}}</div>
   </div>
 </template>
 
@@ -17,10 +18,8 @@ export default defineComponent({
   },
   data() {
     return {
-      displayNumber: this.randomNumber,
       isTransitioning: false,
-      cycles: 26,
-      currentCycle: 0,
+      randomNumberList: Array.from({ length: 20 }, () => Math.floor(Math.random() * 1000)),
     };
   },
   methods: {
@@ -32,19 +31,13 @@ export default defineComponent({
       return Math.max(min, Math.min(max, value));
     },
     transition() {
-      if (this.currentCycle < this.cycles) {
-        this.currentCycle += 1;
-        this.displayNumber = this.limitByRange(this.randomNumber - this.animationFunction(this.currentCycle), 0, 1000);
-        setTimeout(this.transition, (this.currentCycle * this.currentCycle * 1.08));
-      } else {
-        this.isTransitioning = false;
-        this.currentCycle = 0;
-        this.displayNumber = this.randomNumber;
-        this.$emit('transition', this.isTransitioning);
-      }
+      this.isTransitioning = false;
+      this.randomNumberList = Array.from({ length: 20 }, () => Math.floor(Math.random() * 1000));
+      this.randomNumberList[0] = this.randomNumber;
+      this.$emit('transition', this.isTransitioning);
     },
     handleChange() {
-      this.transition();
+      setTimeout(this.transition, 9001);
       this.isTransitioning = true;
       this.$emit('transition', this.isTransitioning);
     },
@@ -56,21 +49,35 @@ export default defineComponent({
 </script>
 
 <style lang="stylus" scoped>
+@keyframes toLeft100
+  0%
+    transform translateX(0)
+  100%
+    transform translateX(-100vw * 20)
+
+.animate
+  animation toLeft100 9s cubic-bezier(0, 0.55, 0.45, 1) forwards
+
 #random-number-display
-  text-align: center
-  span
+  display flex
+  width 100vw
+  div
+    text-align: center
     font-weight: bold
+    flex 0 0 100vw
+
     @media (max-width: 600px)
       font-size: 100px
+
     @media (min-width: 600px)
       font-size: 150px
+
     @media (min-width: 768px)
       font-size: 200px
-    @media (min-width 922px)
+
+    @media (min-width: 922px)
       font-size: 250px
+
     @media (min-width: 1200px)
       font-size: 300px
-
-.isTransitioning
-  color: black
 </style>
