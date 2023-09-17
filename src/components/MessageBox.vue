@@ -5,12 +5,14 @@
     'error': messageType == MessageType.Error,
     'success': messageType == MessageType.Success,
   }">
-    <div>
-      <div class="left-side"></div>
-      <div class="right-side">
+    <div class="info">
         <h1 class="title">{{ title }}</h1>
         <p class="message">{{ message }}</p>
-      </div>
+    </div>
+    <div class="button-list">
+        <button class="custom-button" v-for="button in buttons" :key="button.text" @click="button.onClick">
+            {{ button.text }}
+        </button>
     </div>
   </div>
 </template>
@@ -24,6 +26,17 @@ export enum MessageType {
   Warning,
   Error,
   Success,
+}
+
+export class CustomButton {
+  text: string;
+
+  onClick: () => void;
+
+  constructor(text: string, onClick: () => void) {
+    this.text = text;
+    this.onClick = onClick;
+  }
 }
 
 export default defineComponent({
@@ -41,6 +54,10 @@ export default defineComponent({
       type: Number,
       default: MessageType.Info,
       validator: (value: number) => [MessageType.Info, MessageType.Warning, MessageType.Error].includes(value),
+    },
+    buttons: {
+      type: Array,
+      default: () => [],
     },
   },
   setup() {
@@ -66,6 +83,8 @@ export default defineComponent({
   background: #fff
   box-shadow 0 0 10px 0 rgba(0, 0, 0, 0.5)
   z-index 9999
+  display flex
+  flex-direction column
 
   @media (max-width: 600px)
     right: 10%
@@ -115,18 +134,27 @@ export default defineComponent({
   width 1rem
 
 .info
-  &>div>.right-side>.title
+  &>div>.title
     color: #3498db
 
 .warning
-  &>div>.right-side>.title
+  &>div>.title
     color: #f1c40f
 
 .error
-  &>div>.right-side>.title
+  &>div>.title
     color: #e74c3c
 
+.info
+  flex: 8
+
 .success
-  &>div>.right-side>.title
+  &>div>.title
     color: #2ecc71
+
+.button-list
+  display: flex
+  justify-content: center
+  margin: 1rem 0
+  flex 2
 </style>

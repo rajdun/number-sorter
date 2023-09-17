@@ -18,12 +18,16 @@
       v-if="gameState === GameStates.Lost"
       title="You lost!"
       message="You lost the game. Try again!"
-      messageType="2" />
+      messageType="2"
+      :buttons="gameButtons.gameLostButtons"
+    />
     <MessageBox
       v-if="gameState === GameStates.Won"
       title="You won!"
       message="You won the game. Congratulations!"
-      messageType="3" />
+      messageType="3"
+      :buttons="gameButtons.gameWonButtons"
+    />
   </div>
 </template>
 
@@ -32,7 +36,7 @@ import { defineComponent, ref } from 'vue';
 import RandomNumberDisplay from '@/components/RandomNumberDisplay.vue';
 import NavBar from '@/components/NavBar.vue';
 import SortedField from '@/components/SortedField.vue';
-import MessageBox from '@/components/MessageBox.vue';
+import MessageBox, { CustomButton } from '@/components/MessageBox.vue';
 
 // eslint-disable-next-line no-shadow
 enum GameStates {
@@ -63,6 +67,18 @@ export default defineComponent({
       isTransitioning: false,
       sortedNumbers: Array.from(Array(10)).fill(-1),
       gameState: GameStates.Shuffling,
+      gameButtons: {
+        gameWonButtons: [
+          new CustomButton('Play again!', () => {
+            this.$router.push('/');
+          }),
+        ],
+        gameLostButtons: [
+          new CustomButton('Try again!', () => {
+            this.$router.push('/');
+          }),
+        ],
+      },
     };
   },
   methods: {
@@ -110,11 +126,7 @@ export default defineComponent({
         return false;
       }
 
-      if (this.gameState !== GameStates.Sorting) {
-        return false;
-      }
-
-      return true;
+      return this.gameState === GameStates.Sorting;
     },
   },
 });
